@@ -32,7 +32,8 @@ pipeline {
             steps {
                 echo 'Creating the image...'
                 // This will search for a Dockerfile.artifact in the working directory and build the image to the local repository
-                sh "docker build -t \"aitorf/simple-java-maven-app:${env.BUILD_ID}\" -f Dockerfile.artifact ."
+                // Using latest tag to override tha newest image in the hub
+                sh "docker build -t \"aitorf/simple-java-maven-app:latest\" -f Dockerfile.artifact ."
                 echo "Done"
                 echo 'Retrieving Docker Hub password from /opt/ditas-docker-hub.passwd...'
                 // Get the password from a file. This reads the file from the host, not the container. Slaves already have the password in there.
@@ -43,8 +44,8 @@ pipeline {
                 echo 'Login to Docker Hub as aitorf...'
                 sh "docker login -u aitorf -p ${password}"
                 echo "Done"
-                echo "Pushing the image aitorf/simple-java-maven-app:${env.BUILD_ID}..."
-                sh "docker push aitorf/simple-java-maven-app:${env.BUILD_ID}"
+                echo "Pushing the image aitorf/simple-java-maven-app:latest..."
+                sh "docker push aitorf/simple-java-maven-app:latest"
                 echo "Done"
             }
         }
