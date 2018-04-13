@@ -17,14 +17,14 @@ pipeline {
                 }
                 stage('Checkout vdc-request') {
                     steps {
-                        dir('vdc-logging') {
+                        dir('vdc-request') {
                             git changelog: false, credentialsId: 'Aitor-IDEKO-GitHub', poll: false, url: 'https://github.com/DITAS-Project/VDC-Request-Monitor.git'
                         }
                     }
                 }
                 stage('Checkout vdc-throughput') {
                     steps {
-                        dir('vdc-logging') {
+                        dir('vdc-throughput') {
                             git changelog: false, credentialsId: 'Aitor-IDEKO-GitHub', poll: false, url: 'https://github.com/DITAS-Project/VDC-Throughput-Agent.git'
                         }
                     }
