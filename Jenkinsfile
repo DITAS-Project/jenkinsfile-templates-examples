@@ -10,7 +10,6 @@ pipeline {
                 
                 stage('Checkout vdc-logging') {
                     options { skipDefaultCheckout true }
-                    }
                     steps {
                         dir('vdc-logging') {
                             git changelog: false, credentialsId: 'Aitor-IDEKO-GitHub', poll: false, url: 'https://github.com/DITAS-Project/VDC-Logging-Agent.git'
