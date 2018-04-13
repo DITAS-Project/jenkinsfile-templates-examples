@@ -2,7 +2,12 @@ pipeline {
     agent any
     stages {
         stage ('Checkout') {
+            options {
+                // Don't checkout the repo where it is this Jenkinsfles, just the target repos of this pipeline
+                skipDefaultCheckout true
+            }
             parallel {
+                
                 stage('Checkout vdc-logging') {
                     steps {
                         dir('vdc-logging') {
