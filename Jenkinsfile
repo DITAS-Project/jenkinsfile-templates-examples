@@ -6,8 +6,7 @@ pipeline {
                 // Don't checkout the repo where it is this Jenkinsfles, just the target repos of this pipeline. Must be set at every stage.
                 skipDefaultCheckout true
             }
-            parallel {
-                
+            parallel {                
                 stage('Checkout vdc-logging') {
                     options { skipDefaultCheckout true }
                     steps {
