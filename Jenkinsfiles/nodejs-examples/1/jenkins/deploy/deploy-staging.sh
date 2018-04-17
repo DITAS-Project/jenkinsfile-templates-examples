@@ -6,8 +6,10 @@
 
 ssh -i /opt/keypairs/ditas-testbed-keypair.pem cloudsigma@31.171.247.162 << 'ENDSSH'
 # Ensure that a previously running instance is stopped (-f stops and removes in a single step)
-# || true - "docker stop" failt with exit status 1 if image doen't exists, what makes the Pipeline fail. the "|| true" forces the command to exit with 0.
-sudo docker rm -f IMAGE_NAME || true
+# || true - "docker stop" fails with exit status 1 if image doen't exists, what makes the Pipeline fail. the "|| true" forces the command to exit with 0
+# Try a graceful stop: 20 seconds for SIGTERM and SIGKILL after that
+sudo docker stop --time 20 IMAGE_NAME || true
+sudo docker rm --force IMAGE_NAME || true
 sudo docker pull ditas/IMAGE_NAME:latest
 sudo docker run -p HOST_PORT:CONTAINER_PORT -d --name IMAGE_NAME ditas/IMAGE_NAME:latest
 ENDSSH
