@@ -17,11 +17,29 @@ pipeline {
             }
         }
         stage('Build container') { 
-	    steps {	    	
-		echo 'Generate docker image with the src folder'
-	    	// This will search for a Dockerfile in the working directory and build the image to the local repository
-		sh 'docker build .'
-	    }
-	}
+			steps {	    	
+			echo 'Generate docker image with the src folder'
+				// This will search for a Dockerfile in the working directory and build the image to the local repository
+			sh 'docker build .'
+			}
+		}
+    }
+    post {
+	   success {
+		  echo 'Sending success e-mail notification'
+		  emailext (
+			 subject: "SUCCESS: '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+			 body: '''${SCRIPT, template="success.template"}''',
+			 recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+		  )
+	   }
+	   failure {
+		  echo 'Sending failure e-mail notification'
+		  emailext (
+			 subject: "FAILURE: '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+			 body: '''${SCRIPT, template="failure.template"}''',
+			 recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+		  )
+	   }
     }
 }
