@@ -11,5 +11,5 @@ ssh -i /opt/keypairs/ditas-testbed-keypair.pem cloudsigma@31.171.247.162 << 'END
 sudo docker stop --time 20 IMAGE_NAME || true
 sudo docker rm --force IMAGE_NAME || true
 sudo docker pull ditas/IMAGE_NAME:latest
-sudo docker run -p HOST_PORT:CONTAINER_PORT -d --name IMAGE_NAME ditas/IMAGE_NAME:latest
+sudo docker run -p HOST_PORT:CONTAINER_PORT --restart unless-stopped -d --name IMAGE_NAME ditas/IMAGE_NAME:latest
 ENDSSH
