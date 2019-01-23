@@ -54,7 +54,13 @@ pipeline {
                 // Staging environment: 31.171.247.162
                 // Private key for ssh: /opt/keypairs/ditas-testbed-keypair.pem
                 // Call the deployment script
-                sh './jenkins/scripts/deploy-staging.sh'
+                sh './jenkins/deploy/deploy-staging.sh'
+            }
+        }
+		stage('Image deploy') {
+            agent any
+            steps {
+                sh './jenkins/dredd/run-api-test.sh'
             }
         }
     }
