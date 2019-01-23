@@ -57,7 +57,7 @@ pipeline {
                 sh './jenkins/deploy/deploy-staging.sh'
             }
         }
-        stage('Image deploy') {
+        stage('Dredd API validation') {
             agent any
             steps {
                 sh './jenkins/dredd/run-api-test.sh'
