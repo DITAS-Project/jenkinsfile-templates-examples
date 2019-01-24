@@ -13,5 +13,4 @@ until $(curl --output /dev/null --silent --head --fail $COMPONENT_ENDPOINT); do
     attempts=$(($attempts+1))
     sleep 5
 done
-# Aquí ya llega cuando se ha conectado, porque si llega a max attems hay un exit y nunca llega aquí
 dredd $YAML_FILE $COMPONENT_ENDPOINT
