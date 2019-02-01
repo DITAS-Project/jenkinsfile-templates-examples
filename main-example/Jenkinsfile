@@ -47,7 +47,7 @@ pipeline {
                 echo "Done "
             }
         }
-        stage('Image deploy') {
+        stage('Deployment in Staging') {
             // TO-DO avoid downloading the source from git again, not neccessary
             agent any
             steps {
@@ -61,6 +61,15 @@ pipeline {
             agent any
             steps {
                 sh './jenkins/dredd/run-api-test.sh'
+            }
+        }
+        stage('Deployment in Production') {
+            agent any
+            steps {
+                // Production environment: 178.22.69.83
+                // Private key for ssh: /opt/keypairs/ditas-testbed-keypair.pem
+                // Call the deployment script
+                sh './jenkins/deploy/deploy-production.sh'
             }
         }
     }
