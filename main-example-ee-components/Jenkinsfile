@@ -70,9 +70,9 @@ pipeline {
                     password = readFile '/opt/ditas-docker-hub.passwd'
                 }
                 sh "docker login -u ditasgeneric -p ${password}"
-				
-				// Change the tag from staging to production 
-				sh "docker tag ditas/IMAGE_NAME:staging ditas/IMAGE_NAME:production"
+                
+                // Change the tag from staging to production 
+                sh "docker tag ditas/IMAGE_NAME:staging ditas/IMAGE_NAME:production"
                 sh "docker push ditas/IMAGE_NAME:production"
             }
         }
