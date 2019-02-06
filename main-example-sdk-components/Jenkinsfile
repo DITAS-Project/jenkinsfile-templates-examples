@@ -64,6 +64,7 @@ pipeline {
             }
         }
         stage('Production image creation') {
+            agent any
             steps {
                 // Change the tag from staging to production 
                 sh "docker tag ditas/IMAGE_NAME:staging ditas/IMAGE_NAME:production"
