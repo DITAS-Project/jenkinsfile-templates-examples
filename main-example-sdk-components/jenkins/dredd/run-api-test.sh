@@ -9,7 +9,7 @@ COMPONENT_URL="http://31.171.247.162:50011"
 YAML_FILE="a.yaml"
 
 attempts=0
-until $(curl --output /dev/null --silent --head --fail $COMPONENT_URL); do
+until $(curl --output /dev/null --silent $COMPONENT_URL); do
     if [ ${attempts} -eq 20 ];then
       echo "Max attempts reached, cannot connect to component"
       exit 1
